@@ -1,0 +1,8 @@
+obj/
+*/obj
+cub3d
+cub3d_bonus
+.vscode
+.DS_Store
+*.o
+*.a
