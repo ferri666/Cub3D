@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:47:34 by vpeinado          #+#    #+#             */
-/*   Updated: 2024/03/19 17:57:51 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/24 12:12:31 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	is_empty_line_and_free(char *line)
 	return (1);
 }
 
-int	solo_falta_matrix(t_map *map)
+int	only_matrix(t_map *map)
 {
 	if (ft_arraylen(map->textures) < 4 || map->ceiling < 0 || map->floor < 0)
 		return (0);

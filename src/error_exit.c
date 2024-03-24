@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:38:18 by vpeinado          #+#    #+#             */
-/*   Updated: 2024/03/20 11:48:25 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/24 11:56:29 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,17 @@ void	print_map_error(char *err_msg, t_map *map)
 	if (map->matrix)
 		ft_free_matrix((void **)map->matrix);
 	if (map->textures)
-		ft_free_matrix((void **)map->textures);
+	{
+		if (map->textures[SOUTH])
+			free(map->textures[SOUTH]);
+		if (map->textures[NORTH])
+			free(map->textures[NORTH]);
+		if (map->textures[WEST])
+			free(map->textures[WEST]);
+		if (map->textures[EAST])
+			free(map->textures[EAST]);
+		free(map->textures);
+	}
 	if (map)
 		free(map);
 	exit(EXIT_FAILURE);

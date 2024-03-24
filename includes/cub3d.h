@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:36:28 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/20 11:57:54 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/24 12:12:31 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			fill_color(t_map *map, char *line);
 int				rgb_to_hex(int *rgb);
 int				*take_rgb(char *line, t_map *map);
 int				rgb_range(int rgb);
-int				solo_falta_matrix(t_map *map);
+int				only_matrix(t_map *map);
 void			fill_texture(t_map *map, char *line);
 void			validate_text(char **textures_arr, t_map *map);
 t_player		player(t_cub3d *cub3d);

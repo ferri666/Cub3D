@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:39:31 by vpeinado          #+#    #+#             */
-/*   Updated: 2024/03/19 18:30:32 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/24 12:12:31 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fill_map_append(t_map *map, char *line)
 		fill_texture(map, line);
 	else if ((*line == 'C' || *line == 'F'))
 		fill_color(map, line);
-	else if (solo_falta_matrix(map))
+	else if (only_matrix(map))
 	{
 		map->matrix = ft_arraypush(map->matrix, ft_strdup(line));
 		if (!map->matrix)
@@ -63,8 +63,7 @@ void	fill_map_append(t_map *map, char *line)
 			printf("Error: No se ha definido el color del suelo\n");
 		if (ft_arraylen(map->textures) < 4)
 			printf("Error: No se han definido todas las texturas\n");
-		print_map_error("El mapa debe ser el ultimo elemento \
-			del archivo .cub\n", map);
+		print_map_error("El mapa debe ser el ultimo elemento\n", map);
 	}
 }
 
@@ -81,7 +80,7 @@ void	fill_map(t_map *map, char *path)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (solo_falta_matrix(map))
+		if (only_matrix(map))
 			line = ft_strtrim2(line, "\t\n");
 		else
 			line = ft_strtrim2(line, " \t\n");
