@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:23:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/19 16:36:21 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:55:40 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_free_matrix(void **matrix)
 	int	i;
 
 	i = 0;
-
 	while (matrix[i])
 		free(matrix[i++]);
 	free(matrix);

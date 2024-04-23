@@ -12,13 +12,13 @@
 
 #include "cub3d.h"
 
-void	*update_adress(t_mlx *m)
+static void	*update_adress(t_mlx *m)
 {
 	return (mlx_get_data_addr(m->img, &m->bit_x_pixl,
 			&m->l_length, &m->endian));
 }
 
-void	*create_image(t_mlx *mlx, char *path, t_cub3d *cub)
+static void	*create_image(t_mlx *mlx, char *path, t_cub3d *cub)
 {
 	int		fd;
 	int		x;
@@ -36,7 +36,7 @@ void	*create_image(t_mlx *mlx, char *path, t_cub3d *cub)
 	return (img);
 }
 
-void	fill_images_struct(t_cub3d *cub3d, t_images *images)
+static void	fill_images_struct(t_cub3d *cub3d, t_images *images)
 {
 	images->gun.img = create_image(cub3d->mlx.mlx,
 			"textures/assets/GUN.xpm", cub3d);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 16:37:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/19 16:21:25 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:47:53 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	validate_player(t_map *map)
 {
-	if (map->player_dir == '0')
-		print_map_error("No se ha definido la posicion del jugador", map);
-	if (map->player_x == -1 || map->player_y == -1)
-		print_map_error("No se ha definido la posicion del jugador", map);
+	if (!map->begin)
+		print_map_error("No map found", map);
+	if (map->player_dir == '0' || map->player_x == -1 || map->player_y == -1)
+		print_map_error("The player's position has not been defined", map);
 }
 
 void	fill_player_vars(t_map *map)
@@ -41,7 +41,7 @@ void	fill_player_vars(t_map *map)
 				if (map->player_dir == '0')
 					map->player_dir = map->matrix[j][i];
 				else
-					print_map_error("Solo un jugador", map);
+					print_map_error("There can only be one player", map);
 			}
 			i++;
 		}

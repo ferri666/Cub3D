@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ceiling_and_floor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:08:42 by vpeinado          #+#    #+#             */
-/*   Updated: 2024/03/19 18:31:35 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:50:47 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_color(char **strs, char *line, int *rgb)
+static void	free_color(char **strs, char *line, int *rgb)
 {
 	if (strs)
 		ft_free_matrix((void **)strs);
@@ -22,14 +22,14 @@ void	free_color(char **strs, char *line, int *rgb)
 		free(rgb);
 }
 
-int	rgb_range(int rgb)
+static int	rgb_range(int rgb)
 {
 	if (rgb < 0 || rgb > 255)
 		return (1);
 	return (0);
 }
 
-int	*take_rgb(char *line, t_map *map)
+static int	*take_rgb(char *line, t_map *map)
 {
 	int		*rgb;
 	char	**strs;
@@ -40,11 +40,11 @@ int	*take_rgb(char *line, t_map *map)
 	strs = ft_split(line, ',');
 	if (!strs)
 		return (NULL);
-	if (ft_arraylen(strs) != 3 || !ft_ids2(strs[0])
-		|| !ft_ids2(strs[1]) || !ft_ids2(strs[2]))
+	if (ft_arraylen(strs) != 3 || !ft_idos(strs[0])
+		|| !ft_idos(strs[1]) || !ft_idos(strs[2]))
 	{
 		free_color(strs, line, rgb);
-		print_map_error("El color debe tener 3 componentes numéricos", map);
+		print_map_error("The color must have 3 numerical components", map);
 	}
 	rgb[0] = ft_atoi(strs[0]);
 	rgb[1] = ft_atoi(strs[1]);
@@ -52,13 +52,13 @@ int	*take_rgb(char *line, t_map *map)
 	if (rgb_range(rgb[0]) || rgb_range(rgb[1]) || rgb_range(rgb[2]))
 	{
 		free_color(strs, line, rgb);
-		print_map_error("Debe ser rgb valido, 255 < 0", map);
+		print_map_error("It must be a valid RGB, 0 < 255", map);
 	}
 	free_color(strs, line, NULL);
 	return (rgb);
 }
 
-int	rgb_to_hex(int *rgb)
+static int	rgb_to_hex(int *rgb)
 {
 	int	hex;
 
@@ -80,7 +80,7 @@ void	fill_color(t_map *map, char *line)
 			map->ceiling = rgb_to_hex(rgb);
 		}
 		else
-			print_map_error("Definido el color del techo más de una vez", map);
+			print_map_error("Ceiling color defined more than once", map);
 	}
 	else if (line[0] == 'F')
 	{
@@ -91,6 +91,6 @@ void	fill_color(t_map *map, char *line)
 			map->floor = rgb_to_hex(rgb);
 		}
 		else
-			print_map_error("Definido el color del suelo más de una vez", map);
+			print_map_error("Floor color defined more than once", map);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:07:55 by vpeinado          #+#    #+#             */
-/*   Updated: 2024/03/19 18:12:43 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:44:35 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	validate_size(t_map *map)
 {
 	if (map->width < 3 || map->height < 3)
-		print_map_error("El mapa debe tener al menos 3x3", map);
+		print_map_error("The map must be at least 3x3", map);
 }
 
-void	floodfill(t_map *map, int **visited, int x, int y)
+static void	floodfill(t_map *map, int **visited, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
 	{
 		ft_free_matrix((void **)visited);
-		print_map_error("El mapa no esta cerrado", map);
+		print_map_error("The map is not closed", map);
 	}
 	if (map->matrix[y][x] == '1' || visited[y][x])
 		return ;
@@ -41,7 +41,7 @@ void	map_closed(t_map *map)
 
 	visited = ft_calloc(map->height + 1, sizeof(int *));
 	if (!visited)
-		print_map_error("No se ha podido crear la matriz", map);
+		print_map_error("The matrix could not be created", map);
 	i = 0;
 	while (i < map->height)
 	{
@@ -49,7 +49,7 @@ void	map_closed(t_map *map)
 		if (!visited[i])
 		{
 			ft_free_matrix((void **)visited);
-			print_map_error("No se ha podido crear la matriz", map);
+			print_map_error("The matrix could not be created", map);
 		}
 		i++;
 	}

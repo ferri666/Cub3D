@@ -6,13 +6,13 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:13:17 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/19 15:09:50 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:46:56 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_calc_tex_positions(t_cub3d *cub)
+static void	calc_tex_positions(t_cub3d *cub)
 {
 	t_raycast	*ray;
 
@@ -34,7 +34,7 @@ static void	ft_calc_tex_positions(t_cub3d *cub)
 		+ ray->line_height / 2) * ray->tex_step;
 }
 
-static void	ft_draw_floor_ceiling(t_cub3d *cub, int x, int from)
+static void	draw_floor_ceiling(t_cub3d *cub, int x, int from)
 {
 	int	y;
 
@@ -48,7 +48,7 @@ static void	ft_draw_floor_ceiling(t_cub3d *cub, int x, int from)
 	}
 }
 
-int	ft_get_pixel_color(t_mlx *mlx, int x, int y)
+static int	get_pixel_color(t_mlx *mlx, int x, int y)
 {
 	char	*dst;
 
@@ -57,36 +57,36 @@ int	ft_get_pixel_color(t_mlx *mlx, int x, int y)
 	return (*(unsigned int *) dst);
 }
 
-static void	ft_apply_texture(t_cub3d *cub, int direction, int x)
+static void	apply_texture(t_cub3d *cub, int direction, int x)
 {
 	int	color;
 
-	color = ft_get_pixel_color(&cub->images.walls[direction], \
+	color = get_pixel_color(&cub->images.walls[direction], \
 		cub->raycast.tex_x, cub->raycast.tex_y);
 	put_pixel(&cub->mlx, color, x, cub->raycast.draw_from);
 }
 
-void	ft_draw_textures(t_cub3d *cub, int x)
+void	draw_textures(t_cub3d *cub, int x)
 {
 	t_raycast	*ray;
 
 	ray = &cub->raycast;
-	ft_calc_tex_positions(cub);
-	ft_draw_floor_ceiling(cub, x, ray->draw_from);
+	calc_tex_positions(cub);
+	draw_floor_ceiling(cub, x, ray->draw_from);
 	while (ray->draw_from < ray->draw_to)
 	{
 		ray->tex_y = (int)ray->tex_pos & (64 - 1);
 		ray->tex_pos += ray->tex_step;
 		if (cub->map->matrix[ray->map_y][ray->map_x] == 'D')
-			ft_apply_texture(cub, DOOR, x);
+			apply_texture(cub, DOOR, x);
 		else if (!ray->side_hit && cub->player.pos_x < ray->map_x)
-			ft_apply_texture(cub, EAST, x);
+			apply_texture(cub, EAST, x);
 		else if (!ray->side_hit && cub->player.pos_x > ray->map_x)
-			ft_apply_texture(cub, WEST, x);
+			apply_texture(cub, WEST, x);
 		else if (ray->side_hit && cub->player.pos_y < ray->map_y)
-			ft_apply_texture(cub, NORTH, x);
+			apply_texture(cub, NORTH, x);
 		else if (ray->side_hit && cub->player.pos_y > ray->map_y)
-			ft_apply_texture(cub, SOUTH, x);
+			apply_texture(cub, SOUTH, x);
 		ray->draw_from++;
 	}
 }

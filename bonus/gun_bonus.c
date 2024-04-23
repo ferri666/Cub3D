@@ -6,13 +6,13 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:48:49 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/17 13:24:07 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:48:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_gun(t_cub3d *c)
+static void	draw_gun(t_cub3d *c)
 {
 	static float	i = -25;
 	static int		dir = 1;

@@ -6,33 +6,33 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:52:09 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/15 13:09:37 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:09:22 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_key_press_handler(int keycode, t_cub3d *cub)
+int	key_press_handler(int keycode, t_cub3d *cub)
 {
 	if (keycode == KEY_ESC)
-		ft_close(cub);
+		close_game(cub);
 	if (keycode == KEY_SHIFT)
 		cub->run = 1;
-	ft_move_up_down(keycode, cub);
-	ft_move_left_right(keycode, cub);
-	ft_move_rotate(keycode, cub);
+	move_up_down(keycode, cub);
+	move_left_right(keycode, cub);
+	move_rotate(keycode, cub);
 	start_game(cub);
 	return (0);
 }
 
-int	ft_key_rel_handler(int keycode, t_cub3d *cub)
+int	key_rel_handler(int keycode, t_cub3d *cub)
 {
 	if (keycode == KEY_SHIFT)
 		cub->run = 0;
 	return (0);
 }
 
-int	ft_mouse_handler(int button, int x, int y, t_cub3d *cub)
+int	mouse_handler(int button, int x, int y, t_cub3d *cub)
 {
 	if (button == 1 && y > 10 && x > 0)
 	{

@@ -6,11 +6,39 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:19:24 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/15 11:56:05 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:21:23 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_raycast	init_raycast(void)
+{
+	t_raycast	ray;
+
+	ray.ray_dir_x = 0;
+	ray.ray_dir_y = 0;
+	ray.line_height = 0;
+	ray.draw_from = 0;
+	ray.draw_to = 0;
+	ray.map_x = 0;
+	ray.map_y = 0;
+	ray.tex_x = 0;
+	ray.tex_y = 0;
+	ray.tex_step = 0;
+	ray.tex_pos = 0;
+	ray.tex_wall_x = 0;
+	ray.side_dist_x = 0;
+	ray.side_dist_y = 0;
+	ray.delta_dist_x = 0;
+	ray.delta_dist_y = 0;
+	ray.perp_wall_dist = 0;
+	ray.step_x = 0;
+	ray.step_y = 0;
+	ray.side_hit = false;
+	ray.wall_hit = false;
+	return (ray);
+}
 
 static void	fill_player(t_player *pl, int dx, int dy)
 {
@@ -32,7 +60,7 @@ static void	fill_player(t_player *pl, int dx, int dy)
 		pl->plane_x *= -1.0;
 }
 
-t_player	player(t_cub3d *cub3d)
+t_player	init_player(t_cub3d *cub3d)
 {
 	t_player	player;
 
@@ -58,6 +86,6 @@ int	start_game(t_cub3d *cub3d)
 	mlx->img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bit_x_pixl,
 			&mlx->l_length, &mlx->endian);
-	ft_raycast(cub3d);
+	raycasting(cub3d);
 	return (0);
 }

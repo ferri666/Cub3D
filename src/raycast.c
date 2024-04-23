@@ -6,13 +6,27 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:11:52 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/17 12:51:58 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:45:49 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_apply_dda_algorithm(t_cub3d *cub)
+static void	calc_line_height(t_cub3d *cub)
+{
+	t_raycast	*ray;
+
+	ray = &cub->raycast;
+	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
+	ray->draw_from = -ray->line_height / 2 + WIN_HEIGHT / 2;
+	if (ray->draw_from < 0)
+		ray->draw_from = 0;
+	ray->draw_to = ray->line_height / 2 + WIN_HEIGHT / 2;
+	if (ray->draw_to >= WIN_HEIGHT)
+		ray->draw_to = WIN_HEIGHT - 1;
+}
+
+static void	apply_dda_algorithm(t_cub3d *cub)
 {
 	t_raycast	*ray;
 
@@ -41,21 +55,7 @@ void	ft_apply_dda_algorithm(t_cub3d *cub)
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y + 0.0001;
 }
 
-static void	ft_calc_line_height(t_cub3d *cub)
-{
-	t_raycast	*ray;
-
-	ray = &cub->raycast;
-	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
-	ray->draw_from = -ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_from < 0)
-		ray->draw_from = 0;
-	ray->draw_to = ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_to >= WIN_HEIGHT)
-		ray->draw_to = WIN_HEIGHT - 1;
-}
-
-static void	ft_init_dda_algorithm(t_cub3d *cub)
+static void	init_dda_algorithm(t_cub3d *cub)
 {
 	t_raycast	*ray;
 
@@ -84,7 +84,7 @@ static void	ft_init_dda_algorithm(t_cub3d *cub)
 	}
 }
 
-static void	ft_init_ray_directions(t_cub3d *cub, int x)
+static void	init_ray_directions(t_cub3d *cub, int x)
 {
 	t_raycast	*ray;
 
@@ -105,17 +105,17 @@ static void	ft_init_ray_directions(t_cub3d *cub, int x)
 		ray->delta_dist_y = ft_abs(1 / ray->ray_dir_y);
 }
 
-void	ft_raycast(t_cub3d *cub)
+void	raycasting(t_cub3d *cub)
 {
 	int	x;
 
 	x = -1;
 	while (++x < WIN_WIDTH)
 	{
-		ft_init_ray_directions(cub, x);
-		ft_init_dda_algorithm(cub);
-		ft_apply_dda_algorithm(cub);
-		ft_calc_line_height(cub);
-		ft_draw_textures(cub, x);
+		init_ray_directions(cub, x);
+		init_dda_algorithm(cub);
+		apply_dda_algorithm(cub);
+		calc_line_height(cub);
+		draw_textures(cub, x);
 	}
 }

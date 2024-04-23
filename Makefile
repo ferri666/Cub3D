@@ -55,15 +55,21 @@ LIBFT_FILES = ${LIBFT_DIR}/*.c
 #COMPILE
 
 GCC = gcc
-CFLAGS =   -I $(INC_DIR) -Wall -Werror -Wextra #-g3 -fsanitize=address 
+
+ifeq ($(UNAME), Darwin)
+	CFLAGS =   -I $(INC_DIR) -Wall -Werror -Wextra -DUNAME=1
+else
+	CFLAGS =   -I $(INC_DIR) -Wall -Werror -Wextra -DUNAME=0
+endif
+
 LFLAGS:= -L $(LIBFT_DIR) -lft
 RM = rm -f
 
-$(NAME): $(LIBFT_PATH) $(OBJS1) $(OBJS2) $(MLX_PATH)
+$(NAME): $(LIBFT_PATH) $(MLX_PATH) $(OBJS1) $(OBJS2)
 	@$(GCC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(MFLAGS) $^
 	@echo  "[🕋 FINISHED OK]"
 
-$(BONUS): $(LIBFT_PATH) $(B_OBJS) $(B_S_OBJ)
+$(BONUS): $(LIBFT_PATH) $(MLX_PATH) $(B_OBJS) $(B_S_OBJ)
 	@$(GCC) $(CFLAGS) $(LFLAGS) -o $(BONUS) $(MFLAGS) $^
 	@echo  "[🕋 BONUS OK]"
 
@@ -81,9 +87,11 @@ $(B_OBJ_DIR)%.o: $(BONUS_DIR)%.c
 
 $(LIBFT_PATH): $(LIBFT_FILES)
 		@cd $(LIBFT_DIR) && $(MAKE)
+		@echo  "[🕋 LIBFT OK]"
 
 $(MLX_PATH):
 		@make -C $(MLX_DIR)
+		@echo  "[🕋 MLX OK]"
 
 all: $(NAME) bonus
 
@@ -107,4 +115,4 @@ norm:
 
 re: fclean all
 
-.PHONY: all bonus clean fclean norm re
+.PHONY: all bonus clean fclean norm re debug

@@ -6,12 +6,15 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:03:57 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/15 12:37:25 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:04:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*
+Is this coordinate on the map a wall?
+*/
 bool	ft_is_wall(float x, float y, t_cub3d *cub)
 {
 	char	**worldmap;
@@ -22,7 +25,7 @@ bool	ft_is_wall(float x, float y, t_cub3d *cub)
 	return (false);
 }
 
-void	ft_move_left_right(int keycode, t_cub3d *cub)
+void	move_left_right(int keycode, t_cub3d *cub)
 {
 	double	speed;
 
@@ -50,7 +53,7 @@ void	ft_move_left_right(int keycode, t_cub3d *cub)
 	}
 }
 
-void	ft_move_up_down(int keycode, t_cub3d *cub)
+void	move_up_down(int keycode, t_cub3d *cub)
 {
 	double	speed;
 
@@ -78,7 +81,7 @@ void	ft_move_up_down(int keycode, t_cub3d *cub)
 	}
 }
 
-void	ft_move_rotate(int keycode, t_cub3d *cub)
+void	move_rotate(int keycode, t_cub3d *cub)
 {
 	double	r_speed;
 	double	tmpx;

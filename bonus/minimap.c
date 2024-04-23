@@ -6,13 +6,13 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:01:00 by ffons-ti          #+#    #+#             */
-/*   Updated: 2024/03/17 13:07:55 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:57:51 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_square(t_mlx *m, int x, int y, int color)
+static void	put_square(t_mlx *m, int x, int y, int color)
 {
 	int	i;
 	int	j;
@@ -26,7 +26,7 @@ void	put_square(t_mlx *m, int x, int y, int color)
 	}
 }
 
-void	fill_mmap(t_mlx *mmap, t_cub3d *c)
+static void	fill_mmap(t_mlx *mmap, t_cub3d *c)
 {
 	int	i;
 	int	j;
@@ -47,7 +47,7 @@ void	fill_mmap(t_mlx *mmap, t_cub3d *c)
 	}
 }
 
-void	put_player(t_mlx *mmap, t_cub3d *c)
+static void	put_player(t_mlx *mmap, t_cub3d *c)
 {
 	int	i;
 	int	j;

@@ -6,12 +6,13 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:47:34 by vpeinado          #+#    #+#             */
-/*   Updated: 2024/03/24 12:12:31 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:04:13 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/* LIKE STRTRIM, BUT IT FREES THE ORIGINAL STRING*/
 char	*ft_strtrim2(char *s1, char *set)
 {
 	char	*tmp;
@@ -24,21 +25,6 @@ char	*ft_strtrim2(char *s1, char *set)
 	return (tmp);
 }
 
-int	is_empty_line_and_free(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '\t')
-			return (0);
-		i++;
-	}
-	free(line);
-	return (1);
-}
-
 int	only_matrix(t_map *map)
 {
 	if (ft_arraylen(map->textures) < 4 || map->ceiling < 0 || map->floor < 0)
@@ -46,7 +32,10 @@ int	only_matrix(t_map *map)
 	return (1);
 }
 
-int	ft_ids2(char *str)
+/* FUNCTION IS DIGIT OR SPACE
+Takes an string and returns 1 if all characters in it
+are digits or spaces and 0 if they are not*/
+int	ft_idos(char *str)
 {
 	int	i;
 
